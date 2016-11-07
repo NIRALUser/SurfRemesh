@@ -1,4 +1,4 @@
+add_library(SurfRemesh 
+    STATIC
+    SurfaceRemeshing.cpp)
 
-add_library(Remesh_SOURCES 
-		STATIC
-		SurfaceRemeshing.cpp)
