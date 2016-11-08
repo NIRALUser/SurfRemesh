@@ -7,6 +7,8 @@ int main(int argc, char* argv[])
 {
 	PARSE_ARGS;
 	
+	std::cout<<std::endl<<std::endl;
+
 	if (argc < 2)
 	{
 		std::cout << "Usage: " << argv[0] << " --help" << std::endl;

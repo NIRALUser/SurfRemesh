@@ -102,6 +102,7 @@ SurfaceRemeshing::SurfaceRemeshing(const char *subject, const char *sphere, cons
 		m_coeff[0] = 0;
 		m_coeff[1] = 0;
 	}
+
 	float phi, theta;
 	Coordinate::cart2sph(m_pole, &phi, &theta);
 
@@ -137,7 +138,7 @@ SurfaceRemeshing::SurfaceRemeshing(const char *subject, const char *sphere, cons
 			if (fabs(phi - phi_) < eps && fabs(theta - theta_) < eps) continue;
 			SphericalHarmonics::basis(m_degree, (float *)v->fv(), Y);
 			reconsCoord(v->fv(), v1, Y, m_coeff, m_degree, m_pole);
-			MathVector V(v1); V.unit();
+			MathVector V(v1); V.unit(); 
 			v->setVertex(V.fv());
 		}
 	}
@@ -194,6 +195,7 @@ SurfaceRemeshing::SurfaceRemeshing(const char *subject, const char *sphere, cons
 	}
 }
 
+
 void SurfaceRemeshing::reconsCoord(const float *v0, float *v1, float *Y, float *coeff, int degree, float *pole)
 {
 	// spharm basis
@@ -244,8 +246,8 @@ void SurfaceRemeshing::reconsCoord(const float *v0, float *v1, float *Y, float *
 	// inverse rotation
 	Coordinate::rotPoint(rv, rot, v1);
 }
-
-/*void SurfaceRemeshing::reconsCoord(const float *v0, float *v1, float *Y, float *coeff, float degree, float *pole)
+/*
+void SurfaceRemeshing::reconsCoord(const float *v0, float *v1, float *Y, float *coeff, float degree, float *pole)
 {
 	// spharm basis
 	int n = (degree + 1) * (degree + 1);
@@ -351,10 +353,13 @@ void SurfaceRemeshing::deformSurface()
 		float d_v[3];
 		if (m_interpolation)
 		{
-			d_v[0] = dataInterpolation(m_x, id, coeff, m_sphere_subj);
+			// d_v[0] = dataInterpolation(m_x, id, coeff, m_sphere_subj);
+			// d_v[1] = dataInterpolation(m_y, id, coeff, m_sphere_subj);
+			// d_v[2] = dataInterpolation(m_z, id, coeff, m_sphere_subj);
+			d_v[2] = dataInterpolation(m_x, id, coeff, m_sphere_subj);
 			d_v[1] = dataInterpolation(m_y, id, coeff, m_sphere_subj);
-			d_v[2] = dataInterpolation(m_z, id, coeff, m_sphere_subj);
-			
+			d_v[0] = dataInterpolation(m_z, id, coeff, m_sphere_subj);
+
 			if (m_keepColor)
 			{
 				int *d_c = new int[3];
