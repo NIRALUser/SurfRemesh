@@ -353,12 +353,9 @@ void SurfaceRemeshing::deformSurface()
 		float d_v[3];
 		if (m_interpolation)
 		{
-			// d_v[0] = dataInterpolation(m_x, id, coeff, m_sphere_subj);
-			// d_v[1] = dataInterpolation(m_y, id, coeff, m_sphere_subj);
-			// d_v[2] = dataInterpolation(m_z, id, coeff, m_sphere_subj);
-			d_v[2] = dataInterpolation(m_x, id, coeff, m_sphere_subj);
+			d_v[0] = dataInterpolation(m_x, id, coeff, m_sphere_subj);
 			d_v[1] = dataInterpolation(m_y, id, coeff, m_sphere_subj);
-			d_v[0] = dataInterpolation(m_z, id, coeff, m_sphere_subj);
+			d_v[2] = dataInterpolation(m_z, id, coeff, m_sphere_subj);
 
 			if (m_keepColor)
 			{
@@ -377,6 +374,7 @@ void SurfaceRemeshing::deformSurface()
 			d_v[2] = dataMedian(m_z, id, m_sphere_subj);
 		}
 		Vertex *new_v = (Vertex *)m_remesh->vertex(i);
+
 		new_v->setVertex(d_v);
 	}
 }
